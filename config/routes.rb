@@ -39,7 +39,7 @@ Rails.application.routes.draw do
       resources :price_fluctuations, only: %i(index show create update destroy)
     end
     
-    devise_for :users, skip: :omniauth_callbacks, controllers: {registrations: "registrations", sessions: "sessions", confirmations: "confirmations"} do
+    devise_for :users, skip: :omniauth_callbacks, controllers: {registrations: "registrations", sessions: "sessions", confirmations: "confirmations", passwords: "custom_passwords", unlocks: "custom_unlocks"} do
       get "signin" => "devise/sessions#new"
       post "signin" => "devise/sessions#create"
       delete "signout" => "devise/sessions#destroy"
