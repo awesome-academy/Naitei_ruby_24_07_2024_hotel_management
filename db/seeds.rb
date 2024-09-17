@@ -146,7 +146,7 @@ PriceFluctuation.create!(name: "30/4",
   room_id = Faker::Number.between(from: 1, to: 5)
   room_type_id = Faker::Number.between(from: 1, to: 2)
   user_id = Faker::Number.between(from: 1, to: 10)
-  start_date = Faker::Date.backward(days: 90)
+  start_date = Faker::Date.between(from: 10.days.ago, to: 20.days.from_now)
   end_date = start_date + rand(1..5).days
   request = Request.create!(room_id: room_id,
                   room_type_id: room_type_id,
