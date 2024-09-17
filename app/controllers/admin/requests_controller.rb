@@ -29,7 +29,7 @@ class Admin::RequestsController < Admin::BaseController
 
       update_request_and_create_history(@request, room_id, :accepted)
       create_room_costs @request
-      UserMailer.request_accept(@request.user, @request).deliver_now
+      RequestMailerJob.perform_later(@request, :accept)
 
       flash[:success] = t "request.accept_success"
       redirect_to admin_requests_path
@@ -46,7 +46,7 @@ class Admin::RequestsController < Admin::BaseController
 
       update_request_and_create_history(@request, nil, :rejected, reject_reason)
       delete_related_room_costs @request
-      UserMailer.request_reject(@request.user, @request).deliver_now
+      RequestMailerJob.perform_later(@request, :reject)
 
       flash[:success] = t "request.reject_success"
       redirect_to admin_requests_path
